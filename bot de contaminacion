@@ -1,0 +1,41 @@
+import discord, random 
+from discord.ext import commands
+import os 
+
+intents = discord.Intents.default()
+intents.message_content = True
+
+bot = commands.Bot(command_prefix='$', intents=intents)
+
+@bot.command()
+async def objetos(ctx):
+    await ctx.send("puedes usar estos objetos para conocer información acerca de ellos, que hacer con estos o cuanto contaminan:\n cartn\n papel\n botellas\n o puedes pedir recomendaciones para el mundo del gaming\n recomendaciones_gamer\n y tambien hay Memes\n")
+
+@bot.command()
+async def recomendaciones_gamer(ctx):
+    await ctx.send(random.choice(["https://youtu.be/cj84-EZp01s?si=zeWVz59GccPDSR8U", "https://youtu.be/ZazxOp_033M?si=Fm8scd5lT99wNpNj", "https://youtu.be/UXK7BgKpHQY?si=Tdh_wp4OMwpaDfNS", "https://youtu.be/_kjcAsICPxA?si=z-CGsrimxIGlsLTm", "https://youtu.be/FrE3FndPiWo?si=nfPtNcGdQ0pu0fyT", "https://youtu.be/wyRVYFFWf3E?si=BrqJsW7JDZSgMl2e"] ))
+
+@bot.command()
+async def carton(ctx):
+    await ctx.send(random.choice(["https://eresmama.com/12-manualidades-con-carton-reciclado/", "https://www.elespanol.com/cocinillas/cocinar/20190812/ideas-reciclar-cajas-carton-casa-decorar/420958448_0.html", "https://www.handfie.com/manualidades-con-cajas-de-carton/081/" ] ))
+
+@bot.command()
+async def papel(ctx):
+    await ctx.send(random.choice(["https://blog.oxfamintermon.org/manualidades-con-papel-ideas-reutilizar-reciclar/", "https://www.educo.org/blog/5-manualidades-para-ensenar-a-reciclar-papel", "https://www.kalex.es/blog/4-formas-de-aprovechar-el-papelque-has-reciclado/" ] ))
+
+@bot.command()
+async def botellas(ctx):
+    await ctx.send(random.choice(["https://www.fundacionaquae.org/wiki/consejos-para-reutilizar-botellas-de-plastico/", "https://mejorconsalud.as.com/12-ideas-aprovechar-las-botellas-plastico-no-utilizas/", "https://ecoinventos.com/ideas-creativas-para-reciclar-o-reutilizar-botellas-de-plastico/" ] ))
+
+@bot.command()
+async def meme(ctx):
+    imagenes = os.listdir('contaminacion')
+    img_name = random.choice(imagenes)
+    
+    with open(f'contaminacion/{img_name}','rb') as f:
+        # ¡Vamos a almacenar el archivo de la biblioteca Discord convertido en esta variable!
+        picture = discord.File(f)
+    # A continuación, podemos enviar este archivo como parámetro.
+    await ctx.send(file=picture)
+
+bot.run("token")
